@@ -1,0 +1,10 @@
+{{ define "main" }}
+<h2>{{ .Title }}</h2>
+{{ range .Pages.ByDate.Reverse }}
+<article class="post-item">
+    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+    <span class="reading-time">{{ .ReadingTime }} min read</span>
+</article>
+{{ end }}
+{{ end }}

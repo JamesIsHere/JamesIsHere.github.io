@@ -1,0 +1,24 @@
+{{ define "main" }}
+<article class="post">
+    <header>
+        <h2>{{ .Title }}</h2>
+        <div class="post-meta">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+            <span class="reading-time">{{ .ReadingTime }} min read</span>
+        </div>
+    </header>
+
+    <div class="content">
+        {{ .Content }}
+    </div>
+
+    <nav class="post-nav">
+        {{ with .PrevInSection }}
+        <div class="prev">← Previous: <a href="{{ .RelPermalink }}">{{ .Title }}</a></div>
+        {{ end }}
+        {{ with .NextInSection }}
+        <div class="next">Next: <a href="{{ .RelPermalink }}">{{ .Title }}</a> →</div>
+        {{ end }}
+    </nav>
+</article>
+{{ end }}

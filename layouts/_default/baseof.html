@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+    <link rel="stylesheet" href="/css/style.css">
+    {{ with .OutputFormats.Get "rss" -}}
+        {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+    {{ end }}
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">{{ .Site.Title }}</a></h1>
+            <button id="theme-toggle" aria-label="Toggle dark mode">◐</button>
+        </header>
+        <main>
+            {{ block "main" . }}{{ end }}
+        </main>
+        <footer>
+            <p><a href="/index.xml">RSS</a></p>
+        </footer>
+    </div>
+    <script>
+        // Dark mode toggle with localStorage persistence
+        const toggle = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme') ||
+                           (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+        document.documentElement.setAttribute('data-theme', currentTheme);
+
+        toggle.addEventListener('click', () => {
+            const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        });
+    </script>
+</body>
+</html>
