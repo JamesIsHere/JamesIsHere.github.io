@@ -1,7 +1,3 @@
-# James Magee's Blog
-
-Personal technical blog covering finance, data systems, and programming.
-
 ## Local Development
 
 ```bash
